@@ -14,7 +14,7 @@ public class EndangeredMammal extends Mammal {
     }
 
     // Getters
-    public String getCommonNaåme() {
+    public String getCommonName() {
         return commonName;
     }
 
