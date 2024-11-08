@@ -1,17 +1,30 @@
 package com.team5.animal;
 
 public abstract class Mammal implements Animal {
-    // Common properties for all mammals
+    private String commonName;
+    private String scientificName;
     private boolean hasHair;
     private boolean isWarmBlooded;
 
     // Constructor
-    public Mammal(boolean hasHair, boolean isWarmBlooded) {
+    public Mammal(String commonName, String scientificName, boolean hasHair, boolean isWarmBlooded) {
+        this.commonName = commonName;
+        this.scientificName = scientificName;
         this.hasHair = hasHair;
         this.isWarmBlooded = isWarmBlooded;
     }
 
     // Getters
+    @Override
+    public String getCommonName() {
+        return commonName;
+    }
+
+    @Override
+    public String getScientificName() {
+        return scientificName;
+    }
+
     public boolean hasHair() {
         return hasHair;
     }

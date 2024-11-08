@@ -1,39 +1,27 @@
 package com.team5.animal;
 
+import java.util.List;
+
 public class EndangeredMammal extends Mammal {
-    private String commonName;
-    private String scientificName;
-    private String geographicRegion;
-    private EndangermentReason[] endangermentReasons;
+    private List<EndangermentReason> endangermentReasons;
+    private String region;
 
-    public EndangeredMammal(String commonName, String scientificName, String geographicRegion, EndangermentReason[] endangermentReasons) {
-        this.commonName = commonName;
-        this.scientificName = scientificName;
-        this.geographicRegion = geographicRegion;
+    public EndangeredMammal(String commonName, String scientificName, List<EndangermentReason> endangermentReasons, String region) {
+        super(commonName, scientificName);
         this.endangermentReasons = endangermentReasons;
+        this.region = region;
     }
 
-    // Getters
-    public String getCommonName() {
-        return commonName;
-    }
-
-    public String getScientificName() {
-        return scientificName;
-    }
-
-    public String getGeographicRegion() {
-        return geographicRegion;
-    }
-
-    public EndangermentReason[] getEndangermentReasons() {
+    public List<EndangermentReason> getEndangermentReasons() {
         return endangermentReasons;
     }
 
-    // Implement the abstract method from Mammal (if needed)
+    public String getRegion() {
+        return region;
+    }
+
     @Override
     public void move() {
-        System.out.println(commonName + " is moving!");
+        // Implement movement logic
     }
 }
-
