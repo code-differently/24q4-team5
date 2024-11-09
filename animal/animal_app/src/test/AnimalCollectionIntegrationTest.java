@@ -4,12 +4,13 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class AnimalCollectionIntegrationTest {
 
     @Test
     public void testFilterByRegionAndEndangermentReason() {
-        AnimalCollection collection = new AnimalCollection();
+        AnimalCollection animalCollection = new AnimalCollection();
 
         // Add some animals to the collection
         EndangeredMammal panda = new EndangeredMammal("Panda", "Ailuropoda melanoleuca", 
@@ -23,12 +24,16 @@ public class AnimalCollectionIntegrationTest {
         collection.addAnimal(tiger);
         collection.addAnimal(elephant);
 
-        // Filter by region "China" and endangerment reason "HABITAT_DESTRUCTION"
-        var filteredAnimals = collection.filterByRegion("China");
-        filteredAnimals = collection.filterByEndangermentReason(EndangermentReason.HABITAT_LOSS);
+        // First filter by region "China"
+        List<EndangeredMammal> filteredByRegion = animalCollection.filterByRegion("China");
 
+        // Now filter by endangerment reason "HABITAT_LOSS" from the region-filtered list
+        List<EndangeredMammal> filteredAnimals = filteredByRegion.stream()
+            .filter(animal -> animal.getEndangermentReasons().contains(EndangermentReason.HABITAT_LOSS))
+            .collect(Collectors.toList());
+
+        // Assertions
         assertEquals(1, filteredAnimals.size());
         assertEquals("Panda", filteredAnimals.get(0).getCommonName());
     }
 }
-
