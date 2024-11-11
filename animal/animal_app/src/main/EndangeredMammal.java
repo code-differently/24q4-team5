@@ -22,6 +22,7 @@ public class EndangeredMammal extends Mammal {
 
     @Override
     public void move() {
-        // Implement movement logic
+        // Example: simulate a simple movement
+    System.out.println(getCommonName() + " moves.");
     }
 }
