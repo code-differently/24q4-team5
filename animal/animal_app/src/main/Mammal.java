@@ -15,12 +15,10 @@ public abstract class Mammal implements Animal {
     }
 
     // Getters
-    @Override
     public String getCommonName() {
         return commonName;
     }
 
-    @Override
     public String getScientificName() {
         return scientificName;
     }

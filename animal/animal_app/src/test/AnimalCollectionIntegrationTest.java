@@ -1,10 +1,12 @@
-package com.team5.animal;
+
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
+
 
 public class AnimalCollectionIntegrationTest {
 
@@ -20,9 +22,9 @@ public class AnimalCollectionIntegrationTest {
         EndangeredMammal elephant = new EndangeredMammal("Elephant", "Loxodonta africana", 
                 Arrays.asList(EndangermentReason.HABITAT_LOSS), "Africa");
 
-        collection.addAnimal(panda);
-        collection.addAnimal(tiger);
-        collection.addAnimal(elephant);
+        animalCollection.addAnimal(panda);
+        animalCollection.addAnimal(tiger);
+        animalCollection.addAnimal(elephant);
 
         // First filter by region "China"
         List<EndangeredMammal> filteredByRegion = animalCollection.filterByRegion("China");
