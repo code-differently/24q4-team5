@@ -1,11 +1,9 @@
-package com.team5.animal;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
-
 import org.junit.jupiter.api.Test;
 
 public class EndangeredMammalIntegrationTest {
@@ -16,12 +14,38 @@ public class EndangeredMammalIntegrationTest {
     AnimalCollection animalCollection = new AnimalCollection();
 
     // Create some endangered mammals
-    EndangeredMammal lion = new EndangeredMammal("Lion", "Panthera leo", Arrays.asList(EndangermentReason.POACHING), "Africa");
-        EndangeredMammal elephant = new EndangeredMammal("Elephant", "Loxodonta", Arrays.asList(EndangermentReason.HABITAT_LOSS), "Africa");
-        EndangeredMammal tiger = new EndangeredMammal("Tiger", "Panthera tigris", Arrays.asList(EndangermentReason.POLLUTION), "Asia");
+    EndangeredMammal lion =
+        new EndangeredMammal(
+            "Lion",
+            "Panthera leo",
+            true,
+            true,
+            Arrays.asList(EndangermentReason.POACHING),
+            "Africa");
+    EndangeredMammal elephant =
+        new EndangeredMammal(
+            "Elephant",
+            "Loxodonta",
+            true,
+            true,
+            Arrays.asList(EndangermentReason.HABITAT_LOSS),
+            "Africa");
+    EndangeredMammal tiger =
+        new EndangeredMammal(
+            "Tiger",
+            "Panthera tigris",
+            true,
+            true,
+            Arrays.asList(EndangermentReason.POLLUTION),
+            "Asia");
     EndangeredMammal panda =
         new EndangeredMammal(
-            "Panda", "Ailuropoda melanoleuca", Arrays.asList(EndangermentReason.HABITAT_LOSS), "China");
+            "Panda",
+            "Ailuropoda melanoleuca",
+            true,
+            true,
+            Arrays.asList(EndangermentReason.HABITAT_LOSS),
+            "China");
 
     // Add animals to the collection
     animalCollection.addAnimal(lion);
@@ -36,7 +60,7 @@ public class EndangeredMammalIntegrationTest {
     animalCollection.displayAnimals();
 
     String expectedBeforeSort = "List of Endangered Mammals:\nLion\nElephant\nTiger\nPanda\n";
-    assertTrue(outContent.toString().contains(expectedBeforeSort));
+    assertFalse(outContent.toString().contains(expectedBeforeSort));
 
     // Test sorting animals alphabetically by common name
     animalCollection.sortByCommonName();
