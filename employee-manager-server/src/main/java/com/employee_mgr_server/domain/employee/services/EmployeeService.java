@@ -1,8 +1,8 @@
-package main.java.com.employee_mgr_server.domain.employee.services;
+package com.employee_mgr_server.domain.employee.services;
 
-import com.chambers.employeemgrserver.domain.core.exceptions.ResourceCreationException;
-import com.chambers.employeemgrserver.domain.core.exceptions.ResourceNotFoundException;
-import com.chambers.employeemgrserver.domain.employee.models.Employee;
+import com.employee_mgr_server.domain.core.exceptions.ResourceCreationException;
+import com.employee_mgr_server.domain.core.exceptions.ResourceNotFoundException;
+import com.employee_mgr_server.domain.employee.models.Employee;
 
 import java.util.List;
 

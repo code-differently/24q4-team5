@@ -1,6 +1,6 @@
-package main.java.com.employee_mgr_server.domain.employee.repos;
+package com.employee_mgr_server.domain.employee.repos;
 
-import com.chambers.employeemgrserver.domain.employee.models.Employee;
+import com.employee_mgr_server.domain.employee.models.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

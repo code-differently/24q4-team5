@@ -1,4 +1,4 @@
-package main.java.com.employee_mgr_server.domain.employee.models;
+package com.employee_mgr_server.domain.employee.models;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
