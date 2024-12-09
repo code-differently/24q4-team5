@@ -1,99 +1,111 @@
-import { useEffect, useState} from 'react';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import {useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useState } from "react";
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as employeeService from '../services/EmployeeService';
-import {
-    IconButton,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow,
-  } from '@mui/material';
+import {useNavigate } from "react-router-dom";
 
-export const EmployeeTable = () => {
-    const [employees, setEmployees]= useState([]);
-    const navigate = useNavigate();
+const theme = createTheme();
 
-    useEffect(()=> {
-        requestDataFromApi();
-    }, []);
 
-    function requestDataFromApi(){
-        employeeService.getAllEmployees()
-        .then(res => {
-            setEmployees(res.data);
-        })
-    }
+export function Add() {
+  const navigate = useNavigate();
+  const {id} = useParams();
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [email, setEmail] = useState('')
 
-    function goToUpdate(id){
-        navigate(`/update/${id}`);
-    }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const employee = {
+      firstName: data.get('firstName'),
+      lastName: data.get('lastName'),
+      email:data.get('email')
+    };
 
-    function deleteEmployee (id){
-        employeeService.deleteEmployee(id)
-        .then(()=>{
-            requestDataFromApi();
-        })
-    }
+    employeeService.createEmployee(employee)
+    .then(response => {
+      navigate("/");
+    })
 
-    return (
-        <div >
-            <Table sx={{minWidth:700}}>
-                <TableHead sx={{}}>
-                <TableRow>
-                    <TableCell>
-                        Id
-                    </TableCell>                        
-                    <TableCell>
-                        First Name
-                    </TableCell>
-                    <TableCell>
-                        Last Name
-                    </TableCell>
-                    <TableCell>
-                        Email
-                    </TableCell>
-                    <TableCell align="right">
-                        Actions
-                    </TableCell>
-                </TableRow>
-                </TableHead>
-                <TableBody>
-                    {
-                        employees.map((employee)=> {
-                            return(
-                                <TableRow
-                                    hover
-                                    key={employee.id}
-                                >
-                                    <TableCell>
-                                        {employee.id}
-                                    </TableCell>
-                                    <TableCell>
-                                        {employee.firstName}
-                                    </TableCell>
-                                    <TableCell>
-                                        {employee.lastName}
-                                    </TableCell>
-                                    <TableCell>
-                                        {employee.email}
-                                    </TableCell>
-                                    <TableCell align="right">
-                                        <IconButton component="a" onClick={()=> goToUpdate(employee.id)}>
-                                            <EditIcon />
-                                        </IconButton>
-                                        <IconButton component="a" onClick={()=> deleteEmployee(employee.id)}>
-                                            <DeleteIcon />
-                                        </IconButton>
-                                    </TableCell>
-                                </TableRow>
-                            ) 
-                        })
-                    }
-                </TableBody>
-            </Table>
-        </div>
+  };
+
+    return(
+     <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Typography component="h1" variant="h5">
+            Add
+          </Typography>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="given-name"
+                  name="firstName"
+                  required
+                  fullWidth
+                  value={firstName}
+                  onChange= {(e) => setFirstName(e.target.value)}
+                  id="firstName"
+                  label="First Name"
+                  autoFocus
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
+                  id="lastName"
+                  value={lastName}
+                  onChange= {(e) => setLastName(e.target.value)}
+                  label="Last Name"
+                  name="lastName"
+                  autoComplete="family-name"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  value={email}
+                  onChange= {(e) => setEmail(e.target.value)}
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                />
+              </Grid>
+
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+             Save
+            </Button>
+
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
     )
-}
+  };
