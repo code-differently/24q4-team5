@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,36 +10,52 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as employeeService from '../services/EmployeeService';
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useUser } from '@clerk/clerk-react';  // Import Clerk's useUser hook
 
 const theme = createTheme();
 
-
 export function Add() {
   const navigate = useNavigate();
-  const {id} = useParams();
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('')
+  const { id } = useParams();
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const { user } = useUser();  // Get the current signed-in user
+  const [isUserLoaded, setIsUserLoaded] = useState(false);  // For checking if user data is loaded
+
+  useEffect(() => {
+    if (user) {
+      setIsUserLoaded(true);
+    }
+  }, [user]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (!isUserLoaded) {
+      alert("User not logged in");
+      return;
+    }
+    
     const data = new FormData(event.currentTarget);
     const employee = {
       firstName: data.get('firstName'),
       lastName: data.get('lastName'),
-      email:data.get('email')
+      email: data.get('email'),
+      createdBy: user.id  // Include the Clerk user's ID as createdBy
     };
 
     employeeService.createEmployee(employee)
-    .then(response => {
-      navigate("/");
-    })
-
+      .then(response => {
+        navigate("/");
+      })
+      .catch(error => {
+        console.error("Error creating employee:", error);
+      });
   };
 
-    return(
-     <ThemeProvider theme={theme}>
+  return (
+    <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -51,7 +67,7 @@ export function Add() {
           }}
         >
           <Typography component="h1" variant="h5">
-            Add
+            Add Employee
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
@@ -62,7 +78,7 @@ export function Add() {
                   required
                   fullWidth
                   value={firstName}
-                  onChange= {(e) => setFirstName(e.target.value)}
+                  onChange={(e) => setFirstName(e.target.value)}
                   id="firstName"
                   label="First Name"
                   autoFocus
@@ -74,7 +90,7 @@ export function Add() {
                   fullWidth
                   id="lastName"
                   value={lastName}
-                  onChange= {(e) => setLastName(e.target.value)}
+                  onChange={(e) => setLastName(e.target.value)}
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
@@ -86,13 +102,12 @@ export function Add() {
                   fullWidth
                   id="email"
                   value={email}
-                  onChange= {(e) => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                   label="Email Address"
                   name="email"
                   autoComplete="email"
                 />
               </Grid>
-
             </Grid>
             <Button
               type="submit"
@@ -100,12 +115,11 @@ export function Add() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-             Save
+              Save
             </Button>
-
           </Box>
         </Box>
       </Container>
     </ThemeProvider>
-    )
-  };
+  );
+}
