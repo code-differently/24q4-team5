@@ -1,4 +1,3 @@
-// src/App.jsx
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Container } from '@mui/material';
@@ -20,8 +19,8 @@ export default function App() {
           <UserButton />
         </SignedIn>
       </header>
-
-      <Container maxWidth="md">
+      <div className="bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500 min-h-screen shadow-lg">
+      <Container maxWidth="md" className="py-8">
         <BrowserRouter>
           <Routes>
             <Route
@@ -39,6 +38,8 @@ export default function App() {
           </Routes>
         </BrowserRouter>
       </Container>
+      </div>
     </>
   );
 }
+export default App;

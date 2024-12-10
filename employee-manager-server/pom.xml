@@ -75,15 +75,15 @@
 			<artifactId>hibernate-core</artifactId>
 			<version>6.6.2.Final</version>
 		</dependency>
-
+    
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-		
-	</dependencies>
-
-	<build>
+    </dependency>
+	
+  </dependencies>
+	
+  <build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
