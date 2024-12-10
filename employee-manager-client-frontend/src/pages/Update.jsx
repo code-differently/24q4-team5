@@ -29,12 +29,12 @@ export const Update = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h1 className="text-2xl font-semibold text-center text-gray-800 mb-6">Update Employee</h1>
+    <div className="flex justify-center items-center min-h-screen bg-[#EBEBEB]">
+      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
+        <h1 className="text-2xl font-semibold text-center text-[#323232] mb-6">Update Employee</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="firstName" className="block text-sm font-medium text-gray-600">First Name</label>
+            <label htmlFor="firstName" className="block text-sm font-medium text-[#6D6D6D]">First Name</label>
             <input
               type="text"
               id="firstName"
@@ -42,11 +42,10 @@ export const Update = () => {
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
+              className="w-full px-4 py-2 border border-[#829CD0] rounded-md focus:outline-none focus:ring-2 focus:ring-[#20368F]" />
           </div>
           <div className="mb-4">
-            <label htmlFor="lastName" className="block text-sm font-medium text-gray-600">Last Name</label>
+            <label htmlFor="lastName" className="block text-sm font-medium text-[#6D6D6D]">Last Name</label>
             <input
               type="text"
               id="lastName"
@@ -54,11 +53,10 @@ export const Update = () => {
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
+              className="w-full px-4 py-2 border border-[#829CD0] rounded-md focus:outline-none focus:ring-2 focus:ring-[#20368F]" />
           </div>
           <div className="mb-6">
-            <label htmlFor="email" className="block text-sm font-medium text-gray-600">Email Address</label>
+            <label htmlFor="email" className="block text-sm font-medium text-[#6D6D6D]">Email Address</label>
             <input
               type="email"
               id="email"
@@ -66,13 +64,11 @@ export const Update = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
+              className="w-full px-4 py-2 border border-[#829CD0] rounded-md focus:outline-none focus:ring-2 focus:ring-[#20368F]" />
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
-          >
+            className="w-full bg-[#20368F] text-white py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[#000B4F] hover:bg-[#000B4F]">
             Save Changes
           </button>
         </form>

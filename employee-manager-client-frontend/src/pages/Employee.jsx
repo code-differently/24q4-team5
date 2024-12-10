@@ -9,13 +9,12 @@ export const Employee = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
+    <div className="min-h-screen bg-[#EBEBEB] p-8"> 
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-semibold text-gray-800">Employees</h1>
+        <h1 className="text-3xl font-semibold text-[#323232]">Employees</h1> 
         <button
           onClick={addUser}
-          className="bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-600 focus:outline-none"
-        >
+          className="bg-[#20368F] py-2 px-6 rounded-lg hover:bg-[#000B4F] focus:outline-none">
           Add Employee
         </button>
       </div>

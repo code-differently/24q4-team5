@@ -13,10 +13,10 @@ export default function App() {
   return (
     <>
       <header className="flex justify-between items-center p-4 bg-white shadow-md">
-        <h1 className="text-2xl font-bold">Employee Manager</h1>
+        <h1 className="text-2xl font-bold text-[#323232]">Employee Manager</h1>
         <div className="flex items-center">
           <SignedOut>
-            <SignInButton className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">
+            <SignInButton className="bg-[#20368F] text-white py-2 px-4 rounded-md hover:bg-[#000B4F]">
               Sign In
             </SignInButton>
           </SignedOut>
@@ -26,7 +26,7 @@ export default function App() {
         </div>
       </header>
 
-      <div className="bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500 min-h-screen shadow-lg">
+      <div className="bg-gradient-to-r from-[#003366] via-[#1a3d8f] to-[#4d7ea8] min-h-screen shadow-lg">
         <Container maxWidth="md" className="py-8">
           <BrowserRouter>
             <Routes>
