@@ -7,37 +7,60 @@ import { Update } from './pages/Update';
 import { Add } from './pages/Add';
 import { ClerkProvider, SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react';
 import RequireAuth from './components/RequireAuth'; // Import the RequireAuth component
+import './index.css';  
 
 export default function App() {
   return (
     <>
-      <header>
-        <SignedOut>
-          <SignInButton />
-        </SignedOut>
-        <SignedIn>
-          <UserButton />
-        </SignedIn>
+      <header className="flex justify-between items-center p-4 bg-white shadow-md">
+        <h1 className="text-2xl font-bold">Employee Manager</h1>
+        <div className="flex items-center">
+          <SignedOut>
+            <SignInButton className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">
+              Sign In
+            </SignInButton>
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+        </div>
       </header>
+
       <div className="bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500 min-h-screen shadow-lg">
-      <Container maxWidth="md" className="py-8">
-        <BrowserRouter>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <RequireAuth>
-                  <Employee />
-                </RequireAuth>
-              }
-            />
-            <Route path="/sign-in" element={<SignedOut><SignInButton /></SignedOut>} />
-            <Route path="/update/:id" element={<RequireAuth><Update /></RequireAuth>} />
-            <Route path="/add" element={<RequireAuth><Add /></RequireAuth>} />
-            <Route path="*" element={<NoContent />} />
-          </Routes>
-        </BrowserRouter>
-      </Container>
+        <Container maxWidth="md" className="py-8">
+          <BrowserRouter>
+            <Routes>
+              {/* Protected Routes */}
+              <Route
+                path="/"
+                element={
+                  <RequireAuth>
+                    <Employee />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/update/:id"
+                element={
+                  <RequireAuth>
+                    <Update />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/add"
+                element={
+                  <RequireAuth>
+                    <Add />
+                  </RequireAuth>
+                }
+              />
+              {/* Public Routes */}
+              <Route path="/sign-in" element={<SignedOut><SignInButton /></SignedOut>} />
+              <Route path="*" element={<NoContent />} />
+            </Routes>
+          </BrowserRouter>
+        </Container>
       </div>
     </>
   );
