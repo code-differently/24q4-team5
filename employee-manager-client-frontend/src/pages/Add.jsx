@@ -13,6 +13,7 @@ import * as employeeService from '../services/EmployeeService';
 import { useNavigate } from "react-router-dom";
 import { useUser } from '@clerk/clerk-react';  // Import Clerk's useUser hook
 
+
 const theme = createTheme();
 
 export function Add() {
@@ -116,11 +117,10 @@ export function Add() {
               sx={{ mt: 3, mb: 2 }}
             >
               Save
-              </Button>
-
-              </Box>
-              </Box>
-              </Container>
-              </ThemeProvider>
-);
-}
+            </Button>
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
+   )
+ };
