@@ -18,7 +18,7 @@ We have built a full-stack web application, the **Employee Management Applicatio
 ### Technologies Used:
 - **Frontend**: React.js
 - **Backend**: Spring Boot 3.4.0
-- **Database**: MySQL
+- **Database**: H2
 - **Authentication**: Clerk for sign-up and user authentication
 - **Build Tool**: Maven
 - **Server**: Embedded Tomcat 8.5+
@@ -53,13 +53,7 @@ The backend will run on the default port (usually 8080).
 3. Run the frontend:
    ```bash
    npm run dev
-The frontend will be available at http://localhost:3000.
-
-### Known Issues
-[Insert Known Issues Here]
-
-### Roadmap
-[Insert Roadmap Features Here]
+The frontend will be available at http://localhost:5134.
 
 ### Credits
 Clerk: Used for user authentication and sign-up features.
