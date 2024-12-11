@@ -18,21 +18,23 @@ import com.employee_mgr_server.domain.employee.models.Employee;
 import com.employee_mgr_server.domain.employee.repos.EmployeeRepository;
 import com.employee_mgr_server.domain.employee.services.EmployeeServiceImpl;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
+@Data
+@AllArgsConstructor
 class EmployeeServiceImplTest {
 
     private EmployeeRepository employeeRepository;
     private EmployeeServiceImpl employeeService;
-
     private Employee employee;
 
     @BeforeEach
 void setUp() {
     employeeRepository = Mockito.mock(EmployeeRepository.class);
     employeeService = new EmployeeServiceImpl(employeeRepository);
-    employee = new Employee( "John", "Doe", "john.doe@example.com");
+    employee = new Employee(1L, "John", "Doe", "john.doe@example.com");
 }
 
     @Test
@@ -161,5 +163,11 @@ void setUp() {
 
         assertEquals("No Employee with id: 1", exception.getMessage());
         verify(employeeRepository, times(1)).findById(1L);
+    }
+    @Test
+    void testEmployeeToAString(){
+        String result = employee.toString();
+        String expected = "1 John Doe john.doe@example.com";
+        assertEquals(expected, result);
     }
 }
