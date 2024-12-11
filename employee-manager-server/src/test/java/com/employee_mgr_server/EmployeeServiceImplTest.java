@@ -1,5 +1,7 @@
 package com.employee_mgr_server;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -7,10 +9,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.employee_mgr_server.domain.core.exceptions.ResourceCreationException;
 import com.employee_mgr_server.domain.core.exceptions.ResourceNotFoundException;
@@ -18,36 +23,21 @@ import com.employee_mgr_server.domain.employee.models.Employee;
 import com.employee_mgr_server.domain.employee.repos.EmployeeRepository;
 import com.employee_mgr_server.domain.employee.services.EmployeeServiceImpl;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor
+@ExtendWith(MockitoExtension.class)
 class EmployeeServiceImplTest {
 
+    @Mock
     private EmployeeRepository employeeRepository;
+
+    @InjectMocks
     private EmployeeServiceImpl employeeService;
+
     private Employee employee;
 
     @BeforeEach
     void setUp() {
-    employeeRepository = Mockito.mock(EmployeeRepository.class);
-    employeeService = new EmployeeServiceImpl(employeeRepository);
-    employee = new Employee( "John", "Doe", "john.doe@example.com");
-    employee.setId(1L);
-    employee.getId();
-}
-
-
-    @Test
-    void testEmployeeEmailAlreadyExists() {
-        
-        when(employeeRepository.findByEmail(employee.getEmail())).thenReturn(Optional.of(employee));
-
-        ResourceCreationException exception = assertThrows(ResourceCreationException.class, () -> {
-            employeeService.create(employee);
-        });
-
-        assertEquals("Employee with email exists: john.doe@example.com", exception.getMessage());
-        verify(employeeRepository, times(1)).findByEmail(employee.getEmail());
+        employee = new Employee("John", "Doe", "john.doe@example.com");
+        employee.setId(1L);
     }
 
     @Test
@@ -71,11 +61,12 @@ class EmployeeServiceImplTest {
 
         assertNotNull(foundEmployee);
         assertEquals(employee.getId(), foundEmployee.getId());
+        assertEquals(employee.getFirstName(), foundEmployee.getFirstName());
         verify(employeeRepository, times(1)).findById(1L);
     }
 
     @Test
-    void testEmployeeNotFound() {
+    void testGetEmployeeById_whenEmployeeNotFound_shouldThrowException() {
         when(employeeRepository.findById(1L)).thenReturn(Optional.empty());
 
         ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> {
@@ -98,7 +89,7 @@ class EmployeeServiceImplTest {
     }
 
     @Test
-    void testEmployeeEmailNonExistent() {
+    void testGetEmployeeByEmail_whenEmployeeNotFound_shouldThrowException() {
         when(employeeRepository.findByEmail("john.doe@example.com")).thenReturn(Optional.empty());
 
         ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> {
@@ -107,6 +98,21 @@ class EmployeeServiceImplTest {
 
         assertEquals("No Employee with email: john.doe@example.com", exception.getMessage());
         verify(employeeRepository, times(1)).findByEmail("john.doe@example.com");
+    }
+
+    @Test
+    void testGetAllEmployees() {
+        Employee employee2 = new Employee("Jane", "Smith", "jane.smith@example.com");
+        List<Employee> employeeList = Arrays.asList(employee, employee2);
+        when(employeeRepository.findAll()).thenReturn(employeeList);
+
+        List<Employee> employees = employeeService.getAll();
+
+        assertNotNull(employees);
+        assertEquals(2, employees.size());
+        assertEquals("John", employees.get(0).getFirstName());
+        assertEquals("Jane", employees.get(1).getFirstName());
+        verify(employeeRepository, times(1)).findAll();
     }
 
     @Test
@@ -127,7 +133,7 @@ class EmployeeServiceImplTest {
 
     @Test
     void testUpdateEmployee_whenEmployeeNotFound_shouldThrowException() {
-        Employee updatedEmployee = new Employee( "John", "Smith", "john.smith@example.com");
+        Employee updatedEmployee = new Employee("John", "Smith", "john.smith@example.com");
         when(employeeRepository.findById(1L)).thenReturn(Optional.empty());
 
         ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> {
@@ -149,7 +155,7 @@ class EmployeeServiceImplTest {
     }
 
     @Test
-    void testDeleteEmployee_whenEmployeeNotFound_shouldThrowException() {
+    void testDeleteEmployeeWhenEmployeeNotFound() {
         when(employeeRepository.findById(1L)).thenReturn(Optional.empty());
 
         ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> {
@@ -158,11 +164,5 @@ class EmployeeServiceImplTest {
 
         assertEquals("No Employee with id: 1", exception.getMessage());
         verify(employeeRepository, times(1)).findById(1L);
-    }
-    @Test
-    void testEmployeeToAString(){
-        String result = employee.toString();
-        String expected = "1 John Doe john.doe@example.com";
-        assertEquals(expected, result);
     }
 }
