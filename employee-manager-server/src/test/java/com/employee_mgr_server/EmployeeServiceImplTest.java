@@ -19,10 +19,7 @@ import com.employee_mgr_server.domain.employee.repos.EmployeeRepository;
 import com.employee_mgr_server.domain.employee.services.EmployeeServiceImpl;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
-@Data
 @AllArgsConstructor
 class EmployeeServiceImplTest {
 
@@ -31,16 +28,14 @@ class EmployeeServiceImplTest {
     private Employee employee;
 
     @BeforeEach
-void setUp() {
+    void setUp() {
     employeeRepository = Mockito.mock(EmployeeRepository.class);
     employeeService = new EmployeeServiceImpl(employeeRepository);
-    employee = new Employee(1L, "John", "Doe", "john.doe@example.com");
+    employee = new Employee( "John", "Doe", "john.doe@example.com");
+    employee.setId(1L);
+    employee.getId();
 }
 
-    @Test
-    void testGetAllEmployees(){
-        
-    }
 
     @Test
     void testEmployeeEmailAlreadyExists() {
