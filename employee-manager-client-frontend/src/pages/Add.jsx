@@ -15,10 +15,8 @@ export function Add() {
 
     // Get the UserID from Clerk
     const userId = user.id; 
-
     // Build the employee object
     const employee = { firstName, lastName, email, userId };
-
     // Send the employee data to the backend
     employeeService.createEmployee(employee)
       .then(() => {
@@ -30,9 +28,9 @@ export function Add() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-[#EBEBEB]"> 
-      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md"> 
-        <h1 className="text-2xl font-semibold text-center text-[#323232] mb-6">Add Employee</h1> 
+    <div className="flex justify-center items-center min-h-screen bg-[#EBEBEB]"> {/* Light background */}
+      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md"> {/* Rounded corners and shadow */}
+        <h1 className="text-2xl font-semibold text-center text-[#323232] mb-6">Add Employee</h1> {/* Darker title color */}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="firstName" className="block text-sm font-medium text-[#6D6D6D]">First Name</label>
@@ -69,7 +67,7 @@ export function Add() {
           </div>
           <button
             type="submit"
-            className="w-full bg-[#20368F] text-[#6D6D6D] py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[#000B4F] hover:bg-[#000B4F]">
+            className="w-full bg-[#20368F] text-black py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-[#000B4F] hover:bg-[#000B4F]">
             Save
           </button>
         </form>

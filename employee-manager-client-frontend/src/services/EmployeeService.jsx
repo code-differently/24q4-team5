@@ -21,7 +21,6 @@ export function updateEmployee(id, employee) {
 export function deleteEmployee(id) {
     return axios.delete(`${EMPLOYEE_BASE_API_URL}/${id}`);
 }
-
 // New function to fetch employees by userId
 export function getEmployeesByUserId(userId) {
     return axios.get(`${EMPLOYEE_BASE_API_URL}/user/${userId}`);

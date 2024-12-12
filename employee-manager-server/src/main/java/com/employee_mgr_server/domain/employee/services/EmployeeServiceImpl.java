@@ -63,7 +63,6 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
     @Override
     public List<Employee> getAllByUserId(String userId) {
-    return employeeRepository.findByUserId(userId);
+        return employeeRepository.findByUserId(userId);
     }
-
 }

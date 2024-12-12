@@ -31,7 +31,6 @@ public class Employee {
 
     @NonNull
     private String userId; // Clerk UserID
-
     public String toString() {
         return String.format("%d %s %s %s %s", id, firstName, lastName, email, userId);
     }
