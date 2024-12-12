@@ -16,7 +16,7 @@ export default function App() {
         <h1 className="text-2xl font-bold text-[#323232]">Employee Manager</h1>
         <div className="flex items-center">
           <SignedOut>
-            <SignInButton className="bg-[#20368F] text-white py-2 px-4 rounded-md hover:bg-[#000B4F]">
+            <SignInButton className="bg-[#20368F] text-black py-2 px-4 rounded-md hover:bg-[#000B4F]">
               Sign In
             </SignInButton>
           </SignedOut>
