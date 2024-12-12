@@ -30,7 +30,7 @@ export const Update = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-[#EBEBEB]">
-      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
+       <div className="gradient-to-r from-[#003366] via-[#1a3d8f] to-[#4d7ea8] p-8 rounded-xl shadow-lg w-full max-w-md">
         <h1 className="text-2xl font-semibold text-center text-[#323232] mb-6">Update Employee</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">

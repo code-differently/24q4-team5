@@ -14,7 +14,7 @@ export const Employee = () => {
         <h1 className="text-3xl font-semibold text-[#323232]">Employees</h1> 
         <button
           onClick={addUser}
-          className="bg-[#20368F] py-2 px-6 rounded-lg hover:bg-[#000B4F] focus:outline-none">
+          className="bg-gradient-to-r from-[#003366] via-[#1a3d8f] to-[#4d7ea8]  py-2 px-6 rounded-lg hover:bg-[#000B4F] focus:outline-none">
           Add Employee
         </button>
       </div>
