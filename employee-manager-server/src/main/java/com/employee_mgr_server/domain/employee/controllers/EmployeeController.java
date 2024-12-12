@@ -55,6 +55,22 @@ public class EmployeeController {
     @DeleteMapping("{id}")
     public ResponseEntity delete(@PathVariable("id") Long id){
         employeeService.delete(id);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    @GetMapping("user/{userId}")
+    public ResponseEntity<List<Employee>> getAllByUserId(@PathVariable("userId") String userId) {
+        List<Employee> employees = employeeService.getAllByUserId(userId);
+        return new ResponseEntity<>(employees, HttpStatus.OK);
+    }
+
+
+    @PostMapping("/with-user-id")
+    public ResponseEntity<Employee> createWithUserId(@RequestParam String userId, @RequestBody Employee employee) {
+        employee.setUserId(userId); // Associate the Clerk UserID
+        employee = employeeService.create(employee);
+        return new ResponseEntity<>(employee, HttpStatus.CREATED);
+    }
+
+
+
 }

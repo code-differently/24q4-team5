@@ -13,7 +13,7 @@ import jakarta.persistence.Id;
 @Entity
 @NoArgsConstructor
 @RequiredArgsConstructor
-@Data 
+@Data
 public class Employee {
 
     @Id
@@ -29,7 +29,10 @@ public class Employee {
     @NonNull
     private String email;
 
-    public String toString(){
-        return String.format("%d %s %s %s", id, firstName,lastName,email);
+    @NonNull
+    private String userId; // Clerk UserID
+
+    public String toString() {
+        return String.format("%d %s %s %s %s", id, firstName, lastName, email, userId);
     }
 }

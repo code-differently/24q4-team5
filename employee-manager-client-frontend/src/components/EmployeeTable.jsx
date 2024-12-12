@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from "react-router-dom";
+import { useUser } from "@clerk/clerk-react"; // Import Clerk's useUser hook
 import * as employeeService from '../services/EmployeeService';
 import {
   IconButton,
@@ -14,16 +15,22 @@ import {
 
 export const EmployeeTable = () => {
   const [employees, setEmployees] = useState([]);
+  const { user } = useUser(); // Get the current user's Clerk UserID
   const navigate = useNavigate();
 
   useEffect(() => {
-    requestDataFromApi();
-  }, []);
+    if (user) {
+      requestDataFromApi(user.id); // Fetch employees for the logged-in user
+    }
+  }, [user]);
 
-  function requestDataFromApi() {
-    employeeService.getAllEmployees()
+  function requestDataFromApi(userId) {
+    employeeService.getEmployeesByUserId(userId) // Call the new service function
       .then(res => {
         setEmployees(res.data);
+      })
+      .catch(error => {
+        console.error("Error fetching employees:", error);
       });
   }
 
@@ -34,7 +41,9 @@ export const EmployeeTable = () => {
   function deleteEmployee(id) {
     employeeService.deleteEmployee(id)
       .then(() => {
-        requestDataFromApi();
+        if (user) {
+          requestDataFromApi(user.id); // Refresh the table after deletion
+        }
       });
   }
 
