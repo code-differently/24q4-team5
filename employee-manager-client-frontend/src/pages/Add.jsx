@@ -1,20 +1,31 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import * as employeeService from '../services/EmployeeService';
+import { useUser } from "@clerk/clerk-react"; // Import Clerk's hook
+import * as employeeService from "../services/EmployeeService";
 
 export function Add() {
   const navigate = useNavigate();
+  const { user } = useUser(); // Get the current user from Clerk
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const employee = { firstName, lastName, email };
 
+    // Get the UserID from Clerk
+    const userId = user.id; 
+
+    // Build the employee object
+    const employee = { firstName, lastName, email, userId };
+
+    // Send the employee data to the backend
     employeeService.createEmployee(employee)
-      .then(response => {
-        navigate("/");
+      .then(() => {
+        navigate("/"); // Redirect after successful creation
+      })
+      .catch(error => {
+        console.error("Failed to create employee:", error);
       });
   };
 
