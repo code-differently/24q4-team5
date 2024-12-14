@@ -1,9 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    "./src/**/*.{html,js,jsx,ts,tsx}"  // Scan all .html, .js, .jsx, .ts, .tsx files in the src folder
+    "./index.html",         // Add this line to scan the root HTML file
+    "./src/**/*.{html,js,jsx,ts,tsx}",  // This will scan all your source files
   ],
-  
   theme: {
     extend: {},
   },

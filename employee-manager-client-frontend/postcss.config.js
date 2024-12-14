@@ -1,3 +1,6 @@
+import tailwindcss from 'tailwindcss';
+import autoprefixer from 'autoprefixer';
+
 export default {
   content: [
     "./index.html",
@@ -6,6 +9,9 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    tailwindcss,
+    
+],
   
 }

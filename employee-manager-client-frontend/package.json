@@ -17,9 +17,10 @@
     "@mui/material": "^6.1.10",
     "ag-grid-community": "^32.3.3",
     "ag-grid-enterprise": "^32.3.3",
+    "autoprefixer": "^10.4.20",
     "axios": "^1.7.9",
     "DOM": "^0.0.3",
-    "flowbite": "^2.5.2",
+    "postcss": "^8.4.49",
     "react": "^18.3.1",
     "react-router-dom": "^7.0.2",
     "tailwind": "^4.0.0"
